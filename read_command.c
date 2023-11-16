@@ -10,7 +10,6 @@
 void read_command(char **command, size_t *size)
 {
 	ssize_t bytes_read;
-	int bytes_read;
 
 	bytes_read = getline(command, size, stdin);
 	if (bytes_read  == -1)
@@ -28,5 +27,5 @@ void read_command(char **command, size_t *size)
 		}
 	}
 
-	(*command)[strcspn(*command, "\n")] = '\0';
+
 }

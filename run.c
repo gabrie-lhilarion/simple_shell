@@ -14,26 +14,26 @@ void run(const char *command)
 	{
 		perror("fork");
 		exit(EXIT_FAILURE);
-	}
-	else if (child_pid == 0)
+	} else if (child_pid == 0)
 	{
-		char *args[] = { NULL, NULL };
-		char *envp[] = { NULL };
+		char *args[100];
+		char *token;
+		int i = 0;
 
-		args[0] = strdup(command);
+		token = strtok((char *)command, " \t\n");
 
-		if (args[0] == NULL)
+		while (token != NULL)
 		{
-			perror("strdup");
-			exit(EXIT_FAILURE);
+			args[i++] = token;
+			token = strtok(NULL, " \t\n");
 		}
 
-		execve(command, args, envp);
-		fprintf(stderr, "%s: No such file or directory\n", command);
-		free(args[0]);
+		args[i] = NULL;
+		execve(args[0], args, NULL);
+
+		fprintf(stderr, "%s: No such file or directory\n", args[0]);
 		exit(EXIT_FAILURE);
-	}
-	else
+	} else
 	{
 		wait(NULL);
 	}
