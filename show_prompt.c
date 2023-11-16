@@ -2,5 +2,5 @@
 
 void show_prompt(void)
 {
-    log_output("$ ");
+    log_output("my_shell$ ");
 }

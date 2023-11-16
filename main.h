@@ -11,7 +11,7 @@
 void log_output(const char *str);
 void show_prompt(void);
 void run(const char *command);
-void read_command(char *command, size_t size);
+void read_command(char **command, size_t *size);
 
 
 

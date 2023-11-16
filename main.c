@@ -2,15 +2,16 @@
 
 int main()
 {
-    char command[100];
+    char *command = NULL;
+    size_t size = 0;
 
-    while(1)
-    {
-        show_prompt();
-        read_command(command, sizeof(command));
-        run(command);
-    }
+ while (1) {
+    show_prompt();
+    read_command(&command, &size);
+    run(command);
+}
 
+free(command);
 
     return (0);
 }
