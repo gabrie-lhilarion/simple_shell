@@ -1,30 +1,40 @@
 #include "main.h"
 
-void run(const char *command) {
-    pid_t child_pid = fork();
+/**
+ * run - function that rus the command.
+ * @command: type int argument
+ * Return: void
+ */
 
-    if (child_pid == -1) {
-        perror("fork");
-        exit(EXIT_FAILURE);
-    } else if (child_pid == 0) {
-        char *args[] = { NULL, NULL };   
-        char *envp[] = { NULL };
+void run(const char *command)
+{
+	pid_t child_pid = fork();
 
-        args[0] = strdup(command); 
+	if (child_pid == -1)
+	{
+		perror("fork");
+		exit(EXIT_FAILURE);
+	}
+	else if (child_pid == 0)
+	{
+		char *args[] = { NULL, NULL };
+		char *envp[] = { NULL };
 
-        if (args[0] == NULL) {
-            perror("strdup");
-            exit(EXIT_FAILURE);
-        }
+		args[0] = strdup(command);
 
-        execve(command, args, envp);
+		if (args[0] == NULL)
+		{
+			perror("strdup");
+			exit(EXIT_FAILURE);
+		}
 
-        
-        fprintf(stderr, "%s: No such file or directory\n", command);
-
-        free(args[0]);  
-        exit(EXIT_FAILURE);
-    } else {
-        wait(NULL);
-    }
+		execve(command, args, envp);
+		fprintf(stderr, "%s: No such file or directory\n", command);
+		free(args[0]);
+		exit(EXIT_FAILURE);
+	}
+	else
+	{
+		wait(NULL);
+	}
 }
